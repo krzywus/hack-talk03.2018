@@ -6,7 +6,7 @@ import {AppDashComponent} from './app.dash';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    { path: 'main/:url', component: AppDashComponent },
+    { path: 'main/:url/:xpath', component: AppDashComponent },
     { path: 'main', component: AppDashComponent },
     { path: 'dashboard', component: AppComponent },
 ];
