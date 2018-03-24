@@ -5,11 +5,13 @@ const sdk = window.LivechatVisitorSDK.init({
 let msgId = 0;
 sessionCommands = [];
 userActions = [];
+counter = 0;
 document.addEventListener("click", logEvent);
 
 function resetCommands() {
     sessionCommands = [];
     userActions = [];
+    counter = 0;
 }
 
 function logEvent(event) {
@@ -25,15 +27,18 @@ function logEvent(event) {
   );
   sessionCommands.push({"user_actions": userActions});
 
-  sendToLiveChat();
-  resetCommands();
+  counter += 1;
+  if (counter === 5){
+    sendToLiveChat();
+    resetCommands();
+  }
 }
 
 //this method should actually send created url to liveChat support
 function sendToLiveChat() {
   var url = "";
   url = JSON.stringify(sessionCommands);
-  url = "http://localhost:4201/main/" + encodeURIComponent(url);
+  url = "http://localhost:4200/sessiontracer/main/" + encodeURIComponent(url);
   console.log(url);
   sdk
   .sendMessage({
