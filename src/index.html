@@ -12,14 +12,36 @@
   <app-root></app-root>
   <!-- Start of LiveChat (www.livechatinc.com) code -->
   <script type="text/javascript">
-window.__lc = window.__lc || {};
-window.__lc.license = 9616665;
-(function() {
-  var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-  lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-})();
-  </script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 9616665;
+    (function () {
+        var lc = document.createElement('script');
+        lc.type = 'text/javascript';
+        lc.async = true;
+        lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') +
+            'cdn.livechatinc.com/tracking.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(lc, s);
+    })();
+
+    var LC_API = LC_API || {};
+
+    LC_API.on_after_load = function () {
+
+        window._mfq = window._mfq || [];
+        _mfq.push(function () {
+            var custom_variables = [{
+                name: 'mouseflow_url',
+                value: 'https://app.mouseflow.com/websites/' + mouseflow.websiteId +
+                    '/recordings/' +
+                    mouseflow.getSessionId() + '/play'
+            }, ];
+
+            LC_API.set_custom_variables(custom_variables);
+        });
+
+    };
+</script>
   <!-- End of LiveChat code -->
 </body>
 </html>
