@@ -1,3 +1,4 @@
+
 sessionCommands = [];
 userActions = [];
 document.addEventListener("click", logEvent);
@@ -29,20 +30,21 @@ function logEvent(event) {
 
 //this method should actually send created url to liveChat support
 function sendGetRequest() {
-  var http = new XMLHttpRequest();
   var url = "http://localhost:4201/main/";
   var params = sessionCommands;
   url += JSON.stringify(params);
-  http.open("GET", url, true);
 
-  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-  http.onreadystatechange = function () {
-    if (http.readyState === 4 && http.status === 200) {
-      alert(http.responseText);
-    }
-  };
-  http.send(params);
+  visitorSDK
+  .sendMessage({
+    text: 'Hello',
+    customId: '123423215',
+  })
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    console.log(error)
+  });
 }
 
 
