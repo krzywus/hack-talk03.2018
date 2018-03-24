@@ -1,4 +1,8 @@
-
+const sdk = window.LivechatVisitorSDK.init({
+	license:9616665,
+	group:0
+});
+let msgId = 0;
 sessionCommands = [];
 userActions = [];
 document.addEventListener("click", logEvent);
@@ -9,12 +13,9 @@ function resetCommands() {
 }
 
 function logEvent(event) {
-  console.log("[USER ACTION] ");
   var actionTarget = event.target || event.srcElement || event.currentTarget;
   var actionTargetId = getXPath(actionTarget);
-  console.log(actionTargetId);
   var currentUrl = window.location.href;
-  console.log(currentUrl);
   userActions.push(
     {
       "type": "click",
@@ -30,20 +31,19 @@ function logEvent(event) {
 
 //this method should actually send created url to liveChat support
 function sendToLiveChat() {
-  var url = "http://localhost:4201/main/";
-  url += JSON.stringify(sessionCommands);
+  var url = "";
+  url = JSON.stringify(sessionCommands);
+  url = "http://localhost:4201/main/" + encodeURIComponent(url);
   console.log(url);
-  visitorSDK
+  sdk
   .sendMessage({
-    text: 'Hello',
-    customId: '123423215',
-  })
-  .then(response => {
-    console.log(response)
+    text: url,
+    customId: msgId.toString(),
   })
   .catch(error => {
     console.log(error)
   });
+  msgId += 1;
 }
 
 
