@@ -22,19 +22,28 @@ export class AppDashComponent implements OnInit  {
         const url = this.route.snapshot.paramMap.get('url');
         const xpath = this.route.snapshot.paramMap.get('xpath');
         const myObject = document.getElementById('my-object');
-        myObject.setAttribute('data', url);
+        myObject.setAttribute('src', url);
+        const btn = document.getElementById('next');
+        btn.onclick = (e: Event) => { this.highlight(xpath); };
     }
 
     highlight(xpath: string): void {
-        function getElementByXpath(path) {
-            return <HTMLElement>document.evaluate(
+        function getElementByXpath(path, doc) {
+            return <HTMLElement>doc.evaluate(
                 path,
-                document.getElementById('my-object'),
+                doc,
                 null,
                 XPathResult.FIRST_ORDERED_NODE_TYPE,
                 null).singleNodeValue;
         }
-        getElementByXpath(xpath).style.border = 'thick solid red';
+        const frame = document.getElementById('my-object');
+        const innerDoc = (frame.contentWindow || frame.contentDocument);
+        if (innerDoc.document)innerDoc = innerDoc.document;
+        console.log(innerDoc);
+        console.log(xpath);
+        const el = getElementByXpath(xpath, innerDoc);
+        console.log(el);
+        el.style.border = 'thick solid red';
 
     }
 
