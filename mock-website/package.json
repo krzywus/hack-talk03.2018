@@ -26,6 +26,7 @@
     "@angular/upgrade": "~5.0.0",
     "@livechat/livechat-visitor-sdk": "^0.34.0",
     "angular-in-memory-web-api": "~0.5.0",
+    "protractor": "~5.1.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.0",
     "zone.js": "^0.8.4"

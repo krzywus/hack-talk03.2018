@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {element} from 'protractor';
 
 @Component({
     selector: 'app-dash',
     templateUrl: './app.dash.html',
     styleUrls: ['./app.dash.css']
 })
-export class AppDashComponent implements OnInit {
-    title = 'app';
-    private index = 0;
+export class AppDashComponent implements OnInit, AfterViewInit  {
+
+   @ViewChild('myObject') iframe: ElementRef;
+
+   private index = 0;
     private current_data: any;
+  private doc: Document | Window;
 
     constructor(private route: ActivatedRoute) {
     }
@@ -22,9 +24,10 @@ export class AppDashComponent implements OnInit {
     getWebsite(): void {
         const url = this.route.snapshot.paramMap.get('url');
         let actions = this.route.snapshot.paramMap.get('actions');
-        const myObject = document.getElementById('my-object');
+        const myObject = document.getElementById('myObject');
         myObject.setAttribute('src', url);
         this.current_data = JSON.parse(actions);
+        console.log(actions);
         this.index = 0;
         const btn = document.getElementById('next');
         btn.onclick = (e: Event) => {
@@ -41,6 +44,9 @@ export class AppDashComponent implements OnInit {
         }
     }
 
+  ngAfterViewInit() {
+    this.doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+  }
 
     highlight(xpath: string): void {
         function getElementByXpath(path, doc) {
@@ -51,17 +57,14 @@ export class AppDashComponent implements OnInit {
                 XPathResult.FIRST_ORDERED_NODE_TYPE,
                 null).singleNodeValue;
         }
-
-        const frame = document.getElementById('my-object');
-        let innerDoc = (frame.contentWindow || frame.contentDocument);
-        if (innerDoc.document) {
-            innerDoc = innerDoc.document;
-        }
-        console.log(innerDoc);
-        console.log(xpath);
+      const frame = document.getElementById('myObject');
+      const innerDoc = this.doc;
+      // console.log(innerDoc);
+      //   console.log(xpath);
         const el = getElementByXpath(xpath, innerDoc);
         console.log(el);
         el.style.border = 'thick solid red';
+        el.style.width = '10px';
 
     }
 

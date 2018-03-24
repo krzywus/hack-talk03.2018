@@ -1,3 +1,8 @@
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+
 <div *ngIf="hero">
   <h2>{{ hero.name | uppercase }} Details</h2>
   <div><span>id: </span>{{hero.id}}</div>
