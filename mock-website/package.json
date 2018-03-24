@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --prod",
-    "start": "ng serve",
+    "start": "ng serve --port 4201",
     "lint": "tslint ./src/**/*.ts -t verbose"
   },
   "keywords": [],
