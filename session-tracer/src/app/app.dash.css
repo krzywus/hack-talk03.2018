@@ -1,4 +1,6 @@
-
+* {
+    box-sizing: border-box;
+}
 .sidenav {
     height: 100%;
     width: 200px;
@@ -15,10 +17,6 @@
     height: 50px;
 }
 
-.my-button {
-
-}
-
 
 
 .container {
@@ -29,7 +27,7 @@
     position: absolute;
     top: 20px;
     bottom: 20px;
-    left: 220px;
+    left: 240px;
     right: 20px;
 
     margin: auto;
@@ -38,4 +36,5 @@
 .container > #my-object {
     width: 100%;
     height: 100%;
+    margin: auto;
 }
