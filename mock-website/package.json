@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --prod",
-    "start": "ng serve --port 4201",
+    "start": "ng serve"
   },
   "keywords": [],
   "author": "",
