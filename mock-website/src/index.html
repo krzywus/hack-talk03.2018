@@ -13,7 +13,8 @@
 <script src="https://unpkg.com/@livechat/livechat-visitor-sdk@0.34.0/dist/livechat-visitor-sdk.min.js"></script>
 <!-- Start of LiveChat (www.livechatinc.com) code-->
 <script type="text/javascript">
-  if ( !window.location.href.startsWith('http://localhost:4200/sessiontracer')){
+  if (!window.location.href.startsWith('http://localhost:4200/sessiontracer')
+      && window.frameElement === null){
     window.__lc = window.__lc || {};
     window.__lc.license = 9616665;
     (function () {
