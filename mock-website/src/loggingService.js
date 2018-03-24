@@ -17,32 +17,21 @@ function logEvent(event) {
   userActions.push(
     {
       "type": "click",
-      "currentUrl": currentUrl, //should be encoded - todo
+      "currentUrl": encodeURIComponent(currentUrl),
       "id": actionTargetId
     }
   );
   sessionCommands.push({"user_actions": userActions});
 
-  sendGetRequest();
+  sendToLiveChat();
   resetCommands();
 }
 
 //this method should actually send created url to liveChat support
-function sendGetRequest() {
-  var http = new XMLHttpRequest();
+function sendToLiveChat() {
   var url = "http://localhost:4201/main/";
-  var params = sessionCommands;
-  url += JSON.stringify(params);
-  http.open("GET", url, true);
-
-  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-  http.onreadystatechange = function () {
-    if (http.readyState === 4 && http.status === 200) {
-      alert(http.responseText);
-    }
-  };
-  http.send(params);
+  url += JSON.stringify(sessionCommands);
+  console.log(url);
 }
 
 
@@ -92,7 +81,7 @@ function getXPath(node) {
 
   for (var i = comps.length - 1; i >= 0; i--) {
     comp = comps[i];
-    xpath += '/' + comp.name;
+    xpath += '%2F' + comp.name;
     if (comp.position != null) {
       xpath += '[' + comp.position + ']';
     }
