@@ -43,8 +43,9 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
         if (this.index < this.current_data.length) {
             this.highlight(decodeURIComponent(this.current_data[this.index].id));
             this.index += 1;
-        } else {
-            this.index = 0;
+        }
+        if (this.index >= this.current_data.length){
+            document.getElementById('next').style.backgroundColor = '#969696';
         }
     }
 
