@@ -13,6 +13,8 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
    private index = 0;
     private current_data: any;
   private doc: Document | Window;
+  private lastEl;
+  private lastBorder;
 
     constructor(private route: ActivatedRoute) {
     }
@@ -36,6 +38,8 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
     }
 
     next(): void {
+        if (this.lastEl)
+            this.lastEl.style.border = this.lastBorder;
         if (this.index < this.current_data.length) {
             this.highlight(this.current_data[this.index]);
             this.index += 1;
@@ -43,7 +47,6 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
             this.index = 0;
         }
     }
-
   ngAfterViewInit() {
     this.doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
   }
@@ -66,6 +69,8 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
         console.log(innerDoc);
         console.log(xpath);
         const el = getElementByXpath(xpath, innerDoc);
+        this.lastEl = el;
+        this.lastBorder = el.style.border
         console.log(el);
         el.style.border = 'thick solid red';
       //   function getElementByXpath(path, doc) {
