@@ -1,7 +1,11 @@
-document.addEventListener("click", logEvent);
-
 sessionCommands = [];
 userActions = [];
+document.addEventListener("click", logEvent);
+
+function resetCommands() {
+    sessionCommands = [];
+    userActions = [];
+}
 
 function logEvent(event) {
   console.log("[USER ACTION] ");
@@ -13,21 +17,23 @@ function logEvent(event) {
   userActions.push(
     {
       "type": "click",
-      "currentUrl": currentUrl,
+      "currentUrl": currentUrl, //should be encoded - todo
       "id": actionTargetId
     }
   );
   sessionCommands.push({"user_actions": userActions});
 
-  sendPostRequest();
+  sendGetRequest();
+  resetCommands();
 }
 
-
-function sendPostRequest() {
+//this method should actually send created url to liveChat support
+function sendGetRequest() {
   var http = new XMLHttpRequest();
-  var url = "http://localhost:4201/main";
+  var url = "http://localhost:4201/main/";
   var params = sessionCommands;
-  http.open("POST", url, true);
+  url += JSON.stringify(params);
+  http.open("GET", url, true);
 
   http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
