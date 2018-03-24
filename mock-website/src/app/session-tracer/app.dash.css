@@ -7,22 +7,36 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    overflow-x: hidden;
 }
 
 .sidenav > * {
-    border: 2px solid #353535;
-    border-radius: 10px;
     width: 100%;
     height: 50px;
+    border: solid medium black;
+    background-color: white;
+    box-shadow: 3px 3px 2px rgba(255, 255, 255, 0.22);
+    color: black;
+    font-family: "Berlin Sans FB Demi";
+    font-size: 2em;
 }
 
+.sidenav > *:hover {
+    background-color: #c4c4c4;
+}
 
+.background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #262626;
+
+}
 
 .container {
     overflow: hidden;
-    border: 3px solid #353535;
-    border-radius: 10px;
+    border: solid medium black;
 
     position: absolute;
     top: 20px;
@@ -31,8 +45,10 @@
     right: 20px;
 
     margin: auto;
+    background-color: white;
 
-    background-color: #e2ffd2;
+    box-shadow: 5px 5px 3px rgba(255, 255, 255, 0.22);
+
 }
 
 .container > #myObject {
