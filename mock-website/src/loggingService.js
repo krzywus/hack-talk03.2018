@@ -6,29 +6,31 @@ let msgId = 0;
 sessionCommands = [];
 userActions = [];
 counter = 0;
+startingUrl = window.location.href;
 document.addEventListener("click", logEvent);
 
 function resetCommands() {
     sessionCommands = [];
     userActions = [];
     counter = 0;
+    startingUrl = window.location.href;
 }
 
 function logEvent(event) {
   var actionTarget = event.target || event.srcElement || event.currentTarget;
   var actionTargetId = getXPath(actionTarget);
-  var currentUrl = window.location.href;
   userActions.push(
     {
       "type": "click",
-      "currentUrl": encodeURIComponent(currentUrl),
+      "currentUrl": encodeURIComponent(startingUrl),
       "id": actionTargetId
     }
   );
-  sessionCommands.push({"user_actions": userActions});
-
+  console.log(userActions);
   counter += 1;
+
   if (counter === 5){
+    sessionCommands.push({"user_actions": userActions});
     sendToLiveChat();
     resetCommands();
   }
@@ -36,9 +38,9 @@ function logEvent(event) {
 
 //this method should actually send created url to liveChat support
 function sendToLiveChat() {
-  var url = "";
-  url = JSON.stringify(sessionCommands);
-  url = "http://localhost:4200/sessiontracer/main/" + encodeURIComponent(url);
+  var url = "http://localhost:4200/sessiontracer/main/"
+    + encodeURIComponent(startingUrl) + "/"
+    + encodeURIComponent(JSON.stringify(sessionCommands));
   console.log(url);
   sdk
   .sendMessage({
@@ -56,7 +58,7 @@ function sendToLiveChat() {
 
 function getXPath(node) {
   var comp, comps = [];
-  var xpath = '';
+  var xpath = '%2F';
   var getPos = function(node) {
     var position = 1, curNode;
     if (node.nodeType === Node.ATTRIBUTE_NODE) {

@@ -26,8 +26,8 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
         let actions = this.route.snapshot.paramMap.get('actions');
         const myObject = document.getElementById('myObject');
         myObject.setAttribute('src', url);
-        this.current_data = JSON.parse(actions);
-        console.log(actions);
+        this.current_data = JSON.parse(actions)[0].user_actions;
+        // console.log(this.current_data);
         this.index = 0;
         const btn = document.getElementById('next');
         btn.onclick = (e: Event) => {
@@ -37,7 +37,7 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
 
     next(): void {
         if (this.index < this.current_data.length) {
-            this.highlight(this.current_data[this.index]);
+            this.highlight(decodeURIComponent(this.current_data[this.index].id));
             this.index += 1;
         } else {
             this.index = 0;
@@ -49,6 +49,7 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
   }
 
     highlight(xpath: string): void {
+      console.log(xpath);
         function getElementByXpath(path, doc) {
             return <HTMLElement>doc.evaluate(
                 path,
@@ -63,10 +64,10 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
         if (innerDoc.document) {
             innerDoc = innerDoc.document;
         }
-        console.log(innerDoc);
-        console.log(xpath);
+        // console.log(innerDoc);
+        // console.log(xpath);
         const el = getElementByXpath(xpath, innerDoc);
-        console.log(el);
+        // console.log(el);
         el.style.border = 'thick solid red';
       //   function getElementByXpath(path, doc) {
       //       return <HTMLElement>doc.evaluate(
