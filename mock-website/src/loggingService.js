@@ -18,22 +18,21 @@ function logEvent(event) {
   userActions.push(
     {
       "type": "click",
-      "currentUrl": currentUrl, //should be encoded - todo
+      "currentUrl": encodeURIComponent(currentUrl),
       "id": actionTargetId
     }
   );
   sessionCommands.push({"user_actions": userActions});
 
-  sendGetRequest();
+  sendToLiveChat();
   resetCommands();
 }
 
 //this method should actually send created url to liveChat support
-function sendGetRequest() {
+function sendToLiveChat() {
   var url = "http://localhost:4201/main/";
-  var params = sessionCommands;
-  url += JSON.stringify(params);
-
+  url += JSON.stringify(sessionCommands);
+  console.log(url);
   visitorSDK
   .sendMessage({
     text: 'Hello',
@@ -94,7 +93,7 @@ function getXPath(node) {
 
   for (var i = comps.length - 1; i >= 0; i--) {
     comp = comps[i];
-    xpath += '/' + comp.name;
+    xpath += '%2F' + comp.name;
     if (comp.position != null) {
       xpath += '[' + comp.position + ']';
     }
