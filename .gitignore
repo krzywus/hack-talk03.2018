@@ -1,3 +1,9 @@
 node_modules
 package-lock.json
 .idea
+mock-website/package-lock.json
+mock-website/.idea
+mock-website/node_modules
+session-tracer/node_modules
+session-tracer/package-lock.json
+session-tracer/.idea
