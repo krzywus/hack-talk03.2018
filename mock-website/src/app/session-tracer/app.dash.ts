@@ -57,14 +57,33 @@ export class AppDashComponent implements OnInit, AfterViewInit  {
                 XPathResult.FIRST_ORDERED_NODE_TYPE,
                 null).singleNodeValue;
         }
-      const frame = document.getElementById('myObject');
-      const innerDoc = this.doc;
-      // console.log(innerDoc);
-      //   console.log(xpath);
+
+        const frame = document.getElementById('myObject');
+        let innerDoc = (frame.contentWindow || frame.contentDocument);
+        if (innerDoc.document) {
+            innerDoc = innerDoc.document;
+        }
+        console.log(innerDoc);
+        console.log(xpath);
         const el = getElementByXpath(xpath, innerDoc);
         console.log(el);
         el.style.border = 'thick solid red';
-        el.style.width = '10px';
+      //   function getElementByXpath(path, doc) {
+      //       return <HTMLElement>doc.evaluate(
+      //           path,
+      //           doc,
+      //           null,
+      //           XPathResult.FIRST_ORDERED_NODE_TYPE,
+      //           null).singleNodeValue;
+      //   }
+      // const frame = document.getElementById('myObject');
+      // const innerDoc = this.doc;
+      // // console.log(innerDoc);
+      // //   console.log(xpath);
+      //   const el = getElementByXpath(xpath, innerDoc);
+      //   console.log(el);
+      //   el.style.border = 'thick solid red';
+      //   el.style.width = '10px';
 
     }
 
